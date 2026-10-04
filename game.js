@@ -275,6 +275,25 @@
     if(map[e.key])setDirection(map[e.key]);
     if(e.key.toLowerCase()==="p"&&isHost&&world&&!world.over){world.running=!world.running;world.message=world.running?"Back in action!":"Paused by host";broadcast({type:"state",world});updateWorld(world);}
   });
-  document.querySelectorAll("[data-dir]").forEach(btn=>btn.addEventListener("click",()=>setDirection(btn.dataset.dir)));
+  // Touch-first controls: pointer events work on phones, tablets, and desktop.
+  document.querySelectorAll("[data-dir]").forEach(btn=>{
+    const steer=event=>{event.preventDefault();setDirection(btn.dataset.dir);};
+    btn.addEventListener("pointerdown",steer);
+    btn.addEventListener("click",event=>event.preventDefault());
+  });
+  // Swiping across the board is an optional, natural mobile control.
+  let swipeStart=null;
+  canvas.addEventListener("pointerdown",event=>{
+    if(event.pointerType==="mouse")return;
+    swipeStart={x:event.clientX,y:event.clientY};
+  },{passive:true});
+  canvas.addEventListener("pointerup",event=>{
+    if(!swipeStart)return;
+    const dx=event.clientX-swipeStart.x,dy=event.clientY-swipeStart.y;
+    swipeStart=null;
+    if(Math.max(Math.abs(dx),Math.abs(dy))<22)return;
+    setDirection(Math.abs(dx)>Math.abs(dy)?(dx>0?"right":"left"):(dy>0?"down":"up"));
+  },{passive:true});
+  canvas.addEventListener("pointercancel",()=>{swipeStart=null;});
   // Host owns the shared world; clients only send steering input.
 })();
