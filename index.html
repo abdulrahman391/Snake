@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f0e7">
+  <title>SideQuest — Co-op Snake</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="wordmark" href="#" aria-label="SideQuest home"><span class="logo-glyph">SQ<span>↗</span></span><span>SIDEQUEST<small>CO-OP ARCADE</small></span></a>
+      <div class="header-right"><span class="server-status"><i></i> PEER-TO-PEER</span><span class="version">BUILD 01</span></div>
+    </header>
+
+    <main>
+      <section class="lobby" id="lobby">
+        <div class="hero-copy">
+          <div class="kicker"><span>01</span> THE FRIENDSHIP TEST</div>
+          <h1>Two snakes.<br><em>One mission.</em></h1>
+          <p class="hero-text">Grab the dots. Grow the squad score. Try not to turn your teammate into a very awkward accident.</p>
+          <div class="hero-stats"><div><strong>02</strong><span>PLAYERS</span></div><div><strong>∞</strong><span>TEAMWORK</span></div><div><strong>10<span>pt</span></strong><span>PER DOT</span></div></div>
+          <div class="decor-snake" aria-hidden="true"><span></span><span></span><span></span><span></span><b>●</b></div>
+        </div>
+        <div class="lobby-card">
+          <div class="card-topline"><span>QUICK MATCH</span><span class="badge-open">ROOMS OPEN</span></div>
+          <h2>Get your duo<br>in the game.</h2>
+          <p class="card-description">Start a room and send your code to a friend. No accounts. No downloads.</p>
+          <button class="button button-primary" id="createBtn"><span class="button-icon">＋</span> Create a room <span class="button-arrow">↗</span></button>
+          <div class="or-divider"><span></span> OR JOIN A FRIEND <span></span></div>
+          <div class="join-form"><label for="roomInput">ROOM CODE</label><div class="join-controls"><input id="roomInput" maxlength="8" placeholder="E.G. Q7K2P" autocomplete="off" aria-label="Room code"><button class="button button-dark" id="joinBtn">Join ↗</button></div></div>
+          <p class="status" id="lobbyStatus" role="status">Ready when you are. Create a room to begin.</p>
+          <div class="connection-note"><span class="note-icon">↔</span><span><b>Direct connection</b><br>Gameplay travels between both browsers.</span></div>
+        </div>
+      </section>
+
+      <section class="game-area hidden" id="gameArea">
+        <div class="game-topline"><div><div class="kicker"><span>LIVE</span> SQUAD SESSION</div><h1 class="game-title">Stay in sync<span>.</span></h1></div><div class="room-pill"><span>ROOM CODE</span><strong id="roomLabel">----</strong><button id="copyBtn" title="Copy room code">COPY</button></div></div>
+        <div class="game-layout">
+          <section class="play-column">
+            <div class="board-shell"><div class="board-top"><span><i></i> PLAYFIELD</span><span>30 × 20 GRID</span></div><div class="board-inner"><canvas id="gameCanvas" width="720" height="480" aria-label="Snake Squad game board"></canvas><div class="overlay" id="overlay"><div class="overlay-card"><div class="overlay-symbol">↗</div><p class="kicker">SQUAD STATUS</p><h2 id="overlayTitle">Waiting for your teammate</h2><p id="overlayText">Share your room code. The run starts when both snakes are ready.</p><button class="button button-primary hidden" id="restartBtn">Start the run ↗</button></div></div></div></div>
+            <div class="game-toolbar"><p id="gameStatus" class="muted">Connect a teammate to start.</p><div class="toolbar-actions"><button class="utility-button" id="soundBtn" aria-pressed="false">◖ Sound off</button><button class="utility-button" id="pauseBtn">Ⅱ Pause</button><button class="utility-button leave-button" id="leaveBtn">Leave room ↗</button></div></div>
+          </section>
+          <aside class="side-column">
+            <div class="side-card score-card"><div class="side-label">TOTAL TEAM SCORE <span>↗</span></div><div class="score" id="score">0</div><div class="score-bottom"><span>PERSONAL BEST</span><strong id="bestScore">0</strong></div><div class="score-meter"><span></span></div><p>Every dot counts. Keep the streak alive.</p></div>
+            <div class="side-card squad-card"><div class="side-label">YOUR SQUAD <span>02 SLOTS</span></div><div class="players" id="players"></div><div class="squad-foot"><span class="pulse-dot"></span> Team up, not against.</div></div>
+            <div class="side-card controls-card"><div class="side-label">CONTROLS <span>01 / 03</span></div><div class="control-row"><div class="key-grid"><kbd>W</kbd><div><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></div></div><span>Move snake</span></div><div class="control-row"><div class="key-grid single"><kbd>P</kbd></div><span>Pause / resume</span></div><p class="controls-foot">On mobile? Use the pad below.</p></div>
+          </aside>
+        </div>
+        <div class="mobile-pad" aria-label="Mobile movement controls"><button data-dir="up" aria-label="Move up">↑</button><div><button data-dir="left" aria-label="Move left">←</button><button data-dir="down" aria-label="Move down">↓</button><button data-dir="right" aria-label="Move right">→</button></div></div>
+      </section>
+    </main>
+    <footer class="site-footer"><span>BUILT FOR THE GROUP CHAT.</span><span>SIDEQUEST © 2026 <b>●</b> GOOD LUCK OUT THERE</span></footer>
+  </div>
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
